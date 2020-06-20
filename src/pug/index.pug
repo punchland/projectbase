@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+  head
+    title It worked!
+    link(rel='stylesheet', type='text/css', media='all', href='/example.styl')
+    script(type='text/javascript', src='/example.coffee')
+  body
+    h1 It worked!
+    h3.
+      If you're seeing this, the projectbase webserver is working.
+      This is a live-complied pug file being served out of the
+      #[code src/pug] directory.
+    p.
+      #[em Remember:] the projectbase webserver automatically
+      resolves the paths of different file types, so while regular
+      html goes in the webroot directory, pug, stylus, and coffee
+      source is dropped into the src directory and complied about
+      dynamically on request.

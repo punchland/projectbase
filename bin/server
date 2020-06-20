@@ -1,0 +1,45 @@
+#!/usr/bin/env coffee
+
+http	= require 'http'
+url		= require 'url'
+fs 		= require 'fs'
+path 	= require 'path'
+
+conf	= require '../.config'
+files	= require '../lib/File.coffee'
+
+
+factory = new files.FileFactory(conf.serverwebroot || "webroot", conf.serversrcroot || "src")
+server 	= http.createServer (req, resp) ->
+
+
+	uri 		= url.parse req.url, yes
+	query 		= uri.queryString
+	filepath	= path.normalize uri.pathname
+
+	file		= factory.file filepath
+
+	console.log "serving file #{file}"
+	file.render (data) ->
+			resp.writeHead 200, if file.type then 'Content-Type': file.type
+			resp.write data
+			resp.end()
+		, req
+
+###
+	path.exists file.filepath, (exists) ->
+		if exists
+			console.log "serving file #{file}"
+			file.render (data) ->
+					resp.writeHead 200, if file.type then 'Content-Type': file.type
+					resp.write data
+					resp.end()
+				, req
+		else
+			console.log "#{file} not found"
+			resp.writeHead 404
+			resp.end "404 File Not Found"
+###
+
+.listen conf.server.port
+console.log "Server started, listening on port #{conf.server.port}"
