@@ -91,7 +91,7 @@ exports.CoffeeFile 		= class CoffeeFile extends JavaScriptFile
 
 exports.PugFile 			= class PugFile extends HtmlFile
 	render:			(buffer, req) ->		fs.readFile @filepath, 'utf8', (err, data) ->
-										if err then buffor "#{err}"
+										if err then buffer "#{err}"
 										else
 											fn = pug.compile data
 											buffer fn { query: url.parse(req.url, yes).query }

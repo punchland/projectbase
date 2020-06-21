@@ -13,7 +13,7 @@ factory = new files.FileFactory(conf.serverwebroot || "webroot", conf.serversrcr
 server 	= http.createServer (req, resp) ->
 
 
-	uri 		= url.parse req.url, yes
+	uri 				= url.parse req.url, yes
 	query 		= uri.queryString
 	filepath	= path.normalize uri.pathname
 
